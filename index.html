@@ -57,7 +57,7 @@
     
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
-        import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-messaging.js";
+        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-messaging.js";
         
         
         const firebaseConfig = {
@@ -115,7 +115,7 @@
         // }
         
 
-        messaging.onMessage((payload) => {
+        onMessage(messaging, (payload) => {
             console.log('Message received. ', payload);
             const notificationTitle = payload.notification.title;
             const notificationOptions = {
@@ -126,14 +126,7 @@
             new Notification(notificationTitle, notificationOptions);
         });
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/firebase-messaging-sw.js')
-            .then((registration) => {
-                console.log('Service Worker registered with scope:', registration.scope);
-            }).catch((err) => {
-                console.log('Service Worker registration failed:', err);
-            });
-        }
+        
 
     
       </script>

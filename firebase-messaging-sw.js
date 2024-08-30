@@ -1,7 +1,8 @@
-importScripts('https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/10.13.1/firebase-messaging.js');
 
-// Initialize the Firebase app in the service worker by passing in the messagingSenderId
+importScripts('https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.1.3/firebase-messaging-compat.js');
+
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCGs4UO-AO0DpWsTpihdOddVSfFSaa5bQI",
     authDomain: "bus-tracking-system-a4f93.firebaseapp.com",
@@ -12,13 +13,13 @@ const firebaseConfig = {
     measurementId: "G-RN3MGWKE0H"
   };
 
-  const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-  const messaging = getMessaging(app);
+const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    // Customize notification here
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
         body: payload.notification.body,
@@ -27,3 +28,12 @@ messaging.onBackgroundMessage((payload) => {
 
     self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+    .then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+    }).catch((err) => {
+        console.log('Service Worker registration failed:', err);
+    });
+}
