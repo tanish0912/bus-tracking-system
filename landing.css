@@ -1,0 +1,138 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 2px 1px 2px #eee;
+    box-sizing: border-box;
+    background: linear-gradient(90deg, #1b52be 0%, #1b3b5f 100%);
+    color: #ffffff;
+  }
+
+  #infoHeading{
+    margin-left: 90px;
+  }
+
+  .nav-container{
+    display: flex;
+    align-items: center;
+    margin-right:30px;
+  }
+  
+  nav li{
+    margin-right: 30px;
+    
+    
+  }
+
+  nav li a{
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+
+  li{
+    display: inline-block;
+    gap: 40px;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Lato;
+    width: 100%;
+  }
+
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    
+    
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+
+.content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    padding-top: 20%;
+}
+
+.loginButton{
+    background-color: #1b52be;
+    color: #FFFFFF;
+    border-radius: 10px;
+    border: 0px;
+    width: 175px;
+    height: 45px;
+    font-size: 1.2em;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loginButton:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    
+}
+
+#map {
+    height: 80%;
+    width: 80%;
+    border-radius: 30px;
+    /* box-shadow: 7px 7px 20px 10px #eee; */
+    box-sizing: border-box;
+
+  }
+
+  #container{
+    width: 100%;
+    height: 50vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custom-map-control-button {
+    background-color: #fff;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    padding: 0 0.5em;
+    font: 400 18px Roboto, Arial, sans-serif;
+    overflow: hidden;
+    height: 40px;
+    cursor: pointer;
+  }
+  .custom-map-control-button:hover {
+    background: rgb(235, 235, 235);
+  }

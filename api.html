@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Add Map</title>
+
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="./script.js" defer></script>
+
+
+  </head>
+  <body>
+    
+  <header>
+      <h2 id="infoHeading">Bus Tracking System</h2>
+      <div class="nav-container">
+          <nav class="nav-bar">
+              <ul>
+                  <li><a href="">Home</a></li>
+                  <li id="loginButton"><a href="#">Login</a></li>
+              </ul>
+          </nav>
+      </div>
+  </header>
+
+  <div id="container">
+    
+      <div id="map"></div>
+    
+  </div>
+
+  
+    
+    
+
+  
+
+
+
+
+
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyA0gSRj5x0gvBDuQ1BTX2nQozDEVJw3FtA", v: "weekly"});</script>
+        
+  </body>
+</html>

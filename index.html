@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Tracking System | Scaler School of Technology</title>
+    <link rel="stylesheet" href="landing.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-messaging.js"></script> -->
+    
+</head>
+<body>
+    <header>
+    <h2 id="infoHeading">Bus Tracking System</h2>
+
+    <div class="nav-container">
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li id="loginButton1"><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+    </header>
+    
+    <div class="main" id="main">
+    <div class="video-container">
+        <video autoplay muted loop id="background-video">
+            <source src="sstlandingpage.mp4" type="video/mp4">
+        
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to SST's Bus Tracking System</h1>
+        <button type="button" class="loginButton" id="loginButton" <a href="#">Login</a></button>
+        <button id="requestPermission">Request Notification Permission</button>   
+    </div>
+    </div>
+    <div class="details">
+
+    </div>
+
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyA0gSRj5x0gvBDuQ1BTX2nQozDEVJw3FtA", v: "weekly"});</script>
+    
+    <script src="./script.js" defer></script>
+
+    <script type="module">
+    
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+        import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-messaging.js";
+        
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyCGs4UO-AO0DpWsTpihdOddVSfFSaa5bQI",
+          authDomain: "bus-tracking-system-a4f93.firebaseapp.com",
+          projectId: "bus-tracking-system-a4f93",
+          storageBucket: "bus-tracking-system-a4f93.appspot.com",
+          messagingSenderId: "1024707448915",
+          appId: "1:1024707448915:web:d936d9fa6d7e27081976a6",
+          measurementId: "G-RN3MGWKE0H"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const messaging = getMessaging(app);
+        const analytics = getAnalytics(app);
+
+        document.getElementById('requestPermission').addEventListener('click', () => {
+            Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                    getToken();
+                } else {
+                    console.log('Unable to get permission to notify.');
+                }
+            });
+        });
+        getToken(messaging, {vapidKey: "BNCyLjKF7Ip6XoS1LlBRDU1PzXXqZ2qV5zMzKDCZzINl2b7x_3pc5r1YrwvaW3WGReU3KHT43WZxxLucwfzmMZg"}).then((currentToken)=> {
+            if (currentToken) {
+                console.log('FCM Token:', currentToken);
+                    // Send the token to your server and update the UI if necessary
+                    // ...
+                } else {
+                    // Show permission request UI
+                    console.log('No registration token available. Request permission to generate one.');
+                    // ...
+                }
+                }).catch((err) => {
+                console.log('An error occurred while retrieving token. ', err);
+                // ...
+        });
+
+
+        // function getToken() {
+        //     messaging.getToken({ vapidKey: 'YOUR_PUBLIC_VAPID_KEY' }).then((currentToken) => {
+        //         if (currentToken) {
+        //             console.log('FCM Token:', currentToken);
+        //             // Send the token to your server to send notifications later
+        //         } else {
+        //             console.log('No registration token available. Request permission to generate one.');
+        //         }
+        //     }).catch((err) => {
+        //         console.log('An error occurred while retrieving token. ', err);
+        //     });
+        // }
+        
+
+        messaging.onMessage((payload) => {
+            console.log('Message received. ', payload);
+            const notificationTitle = payload.notification.title;
+            const notificationOptions = {
+                body: payload.notification.body,
+                icon: payload.notification.icon
+            };
+
+            new Notification(notificationTitle, notificationOptions);
+        });
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/firebase-messaging-sw.js')
+            .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            }).catch((err) => {
+                console.log('Service Worker registration failed:', err);
+            });
+        }
+
+    
+      </script>
+    
+</body>
+</html>
